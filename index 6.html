@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Niliana Dacourt — Customer Insight & Data</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F7F4EE;--paper:#FFFFFF;--ink:#2A2722;--ink-soft:#6B6760;
+  --line:#E5E0D6;--accent:#B5673F;--accent-soft:#F0E3DB;--slate:#4A5A6A;
+  --radius:16px;--maxw:1100px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+@media(max-width:640px){.wrap{padding:0 20px}}
+h1,h2,h3{font-family:'Fraunces',serif;font-weight:500;line-height:1.1;letter-spacing:-.01em}
+a{color:inherit;text-decoration:none}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(247,244,238,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;height:64px;gap:20px}
+nav .brand{font-family:'Fraunces',serif;font-size:18px;font-weight:600;letter-spacing:-.02em}
+nav .links{margin-left:auto;display:flex;gap:22px;align-items:center}
+nav .links a{font-size:14px;font-weight:500;color:var(--ink-soft);transition:.2s}
+nav .links a:hover{color:var(--accent)}
+@media(max-width:820px){nav .links a:not(.lang-pill){display:none}}
+
+/* language switcher */
+.lang-switch{display:flex;gap:2px;background:var(--paper);border:1px solid var(--line);border-radius:999px;padding:3px}
+.lang-switch button{border:none;background:transparent;font-family:inherit;font-size:12px;font-weight:700;color:var(--ink-soft);padding:6px 11px;border-radius:999px;cursor:pointer;transition:.2s;letter-spacing:.02em}
+.lang-switch button.active{background:var(--accent);color:#fff}
+
+.hero{padding:90px 0 70px}
+.hero-grid{display:grid;grid-template-columns:1fr;gap:28px;max-width:760px}
+.hero .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+.hero h1{font-size:clamp(40px,7vw,68px);margin-bottom:10px}
+.hero .role{font-size:clamp(18px,3vw,24px);font-family:'Fraunces',serif;color:var(--slate);font-style:italic}
+.hero .bio{font-size:17px;color:var(--ink-soft);line-height:1.75;border-left:2px solid var(--accent);padding-left:22px;margin-top:30px}
+.hero .bio strong{color:var(--ink);font-weight:600}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-family:'Inter',sans-serif;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.2s}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{background:#9D5635;transform:translateY(-1px)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+section{padding:72px 0}
+.section-head{margin-bottom:40px}
+.section-head .num{font-family:'Fraunces',serif;font-size:14px;color:var(--accent);font-weight:600;letter-spacing:.1em}
+.section-head h2{font-size:clamp(28px,5vw,42px);margin-top:6px}
+.section-head p{color:var(--ink-soft);margin-top:10px;max-width:560px}
+
+.project-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:.25s}
+.project-card:hover{box-shadow:0 18px 50px rgba(42,39,34,.1);transform:translateY(-3px)}
+.project-cover{height:220px;background:linear-gradient(135deg,#C8102E,#A30D26);position:relative;display:flex;align-items:center;justify-content:center}
+.project-cover .badge{position:absolute;top:16px;left:16px;background:rgba(255,255,255,.9);color:#A30D26;font-size:11px;font-weight:700;letter-spacing:.05em;padding:5px 11px;border-radius:999px}
+.project-cover .cover-logo{font-family:'Fraunces',serif;color:#fff;font-size:30px;font-weight:600;letter-spacing:-.02em;text-align:center}
+.project-cover .cover-logo small{display:block;font-family:'Inter';font-size:10px;letter-spacing:.2em;opacity:.85;font-weight:500;margin-top:2px}
+.project-body{padding:26px}
+.project-body h3{font-size:24px;margin-bottom:8px}
+.project-body .ptype{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.project-body p{color:var(--ink-soft);font-size:15px;margin-bottom:20px}
+.project-tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tag{font-size:12px;font-weight:500;background:var(--accent-soft);color:var(--accent);padding:5px 12px;border-radius:999px}
+
+.projects-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start}
+@media(max-width:760px){.projects-grid{grid-template-columns:1fr}}
+.project-card.soon{background:transparent;border:1.5px dashed var(--line);box-shadow:none}
+.project-card.soon:hover{transform:none;box-shadow:none;border-color:var(--accent)}
+.project-cover.soon-cover{background:var(--accent-soft);height:220px}
+.project-cover.soon-cover .soon-icon{font-size:34px;opacity:.6}
+.soon-pill{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);background:var(--paper);border:1px solid var(--line);padding:5px 11px;border-radius:999px;margin-bottom:14px}
+.soon-list{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:4px}
+.soon-list li{font-size:14px;color:var(--ink-soft);display:flex;align-items:center;gap:9px}
+.soon-list li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(42,39,34,.55);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:flex-start;justify-content:center;padding:40px 20px;overflow-y:auto}
+.modal-overlay.open{display:flex}
+.modal{background:var(--cream);border-radius:22px;max-width:880px;width:100%;overflow:hidden;animation:rise .35s cubic-bezier(.2,.8,.3,1)}
+@keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.modal-top{background:linear-gradient(135deg,#C8102E,#A30D26);padding:30px 34px;color:#fff;position:relative}
+.modal-top h3{font-size:30px;color:#fff}
+.modal-top .sub{opacity:.9;font-size:14px;margin-top:6px}
+.modal-close{position:absolute;top:18px;right:18px;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.2);border:none;color:#fff;font-size:20px;cursor:pointer;display:grid;place-items:center;transition:.2s}
+.modal-close:hover{background:rgba(255,255,255,.35)}
+.modal-body{padding:32px 34px}
+.modal-body h4{font-family:'Fraunces',serif;font-size:19px;margin:24px 0 8px}
+.modal-body h4:first-child{margin-top:0}
+.modal-body p{color:var(--ink-soft);font-size:15px;margin-bottom:8px}
+.modal-body ul{color:var(--ink-soft);font-size:15px;margin:8px 0 8px 20px}
+.modal-body li{margin-bottom:6px}
+.compare-links{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:24px 0}
+@media(max-width:600px){.compare-links{grid-template-columns:1fr}}
+.compare-card{border:1.5px solid var(--line);border-radius:14px;padding:18px;background:var(--paper);transition:.2s;cursor:pointer;display:block}
+.compare-card:hover{border-color:var(--accent)}
+.compare-card .cc-label{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.compare-card .cc-title{font-family:'Fraunces',serif;font-size:18px;margin:4px 0 6px}
+.compare-card.mine{border-color:var(--accent);background:var(--accent-soft)}
+.compare-card .cc-arrow{font-size:13px;color:var(--accent);font-weight:600}
+.view-toggle{display:flex;gap:10px;margin:8px 0 18px}
+.view-toggle a{flex:1;padding:14px;border-radius:12px;border:1.5px solid var(--line);background:var(--paper);font-family:inherit;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;transition:.2s;display:flex;align-items:center;justify-content:center;gap:8px;text-align:center}
+.view-toggle a:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+.timeline{position:relative;padding-left:28px}
+.timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--line)}
+.tl-item{position:relative;padding-bottom:32px}
+.tl-item::before{content:'';position:absolute;left:-28px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--cream);border:3px solid var(--accent)}
+.tl-item .tl-date{font-size:13px;font-weight:600;color:var(--accent)}
+.tl-item h3{font-size:19px;margin:4px 0 2px}
+.tl-item .tl-org{font-size:14px;color:var(--ink-soft);font-weight:500}
+.tl-item p{font-size:14px;color:var(--ink-soft);margin-top:6px}
+.tl-item a.memoire-link{color:var(--accent);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:5px;margin-top:8px}
+
+.cv-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:760px){.cv-grid{grid-template-columns:1fr}}
+.cv-block{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.cv-block.wide{grid-column:1/-1}
+.cv-block h3{font-size:20px;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.cv-entry{padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.cv-entry:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.cv-entry .ce-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.cv-entry .ce-title{font-weight:600;font-size:15px}
+.cv-entry .ce-org{font-size:14px;color:var(--slate);font-weight:500}
+.cv-entry .ce-date{font-size:12px;color:var(--ink-soft);white-space:nowrap}
+.cv-entry .ce-desc{font-size:13.5px;color:var(--ink-soft);margin-top:5px}
+.cv-skills{display:flex;flex-wrap:wrap;gap:8px}
+.cv-download{margin-top:24px;text-align:center}
+.cert-list{display:flex;flex-direction:column;gap:10px}
+.cert-item{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--cream);border-radius:12px;font-size:14px}
+.cert-item .ci-ico{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);display:grid;place-items:center;font-size:15px;flex-shrink:0}
+.cert-item .ci-name{font-weight:600}
+.cert-item .ci-org{font-size:12px;color:var(--ink-soft)}
+.cert-item a{margin-left:auto;font-size:12px;color:var(--accent);font-weight:600}
+
+.lang-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:760px){.lang-grid{grid-template-columns:repeat(2,1fr)}}
+.lang-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center}
+.lang-card .lc-name{font-family:'Fraunces',serif;font-size:19px;margin-bottom:4px}
+.lang-card .lc-level{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:12px}
+.lang-bar{height:6px;background:var(--line);border-radius:99px;overflow:hidden}
+.lang-bar span{display:block;height:100%;background:var(--accent);border-radius:99px}
+
+.contact{background:var(--ink);color:var(--cream);border-radius:28px;padding:64px 40px;text-align:center;margin:40px 0}
+.contact h2{font-size:clamp(32px,6vw,52px);color:var(--cream);margin-bottom:14px}
+.contact p{color:rgba(247,244,238,.7);margin-bottom:30px}
+.contact-links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.contact-links a{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:15px;transition:.2s}
+.c-email{background:var(--accent);color:#fff}
+.c-email:hover{background:#9D5635}
+.c-linkedin{background:rgba(247,244,238,.12);color:var(--cream);border:1px solid rgba(247,244,238,.25)}
+.c-linkedin:hover{background:rgba(247,244,238,.2)}
+.contact-links svg{width:18px;height:18px}
+footer{text-align:center;padding:30px 0 50px;color:var(--ink-soft);font-size:13px}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+.ph{color:var(--accent);font-style:italic}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <span class="brand">Niliana Dacourt</span>
+    <div class="links">
+      <a href="#projets" data-i18n="nav_projects">Projets</a>
+      <a href="#formation" data-i18n="nav_education">Formation</a>
+      <a href="#cv" data-i18n="nav_cv">CV</a>
+      <a href="#langues" data-i18n="nav_languages">Langues</a>
+      <a href="#contact" data-i18n="nav_contact">Contact</a>
+      <span class="lang-switch lang-pill">
+        <button data-lang="fr" class="active" onclick="setLang('fr')">FR</button>
+        <button data-lang="en" onclick="setLang('en')">EN</button>
+        <button data-lang="pt" onclick="setLang('pt')">PT</button>
+      </span>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow" data-i18n="hero_eyebrow">Portfolio</div>
+      <h1>Niliana Dacourt</h1>
+      <p class="role">Customer Insight &amp; Data</p>
+      <p class="bio" data-i18n="hero_bio"></p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#projets" data-i18n="hero_cta1">Voir mes projets</a>
+        <a class="btn btn-ghost" href="#contact" data-i18n="hero_cta2">Me contacter</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="projets">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num" data-i18n="proj_num">01 — Projets</span>
+      <h2 data-i18n="proj_title">Travaux sélectionnés</h2>
+      <p data-i18n="proj_sub">Là où l'analyse du besoin utilisateur rencontre le design et la donnée.</p>
+    </div>
+    <div class="projects-grid">
+    <div class="project-card reveal">
+      <div class="project-cover">
+        <span class="badge">UX / Product</span>
+        <div class="cover-logo">rhônexpress<small data-i18n="proj_cover_sub">REFONTE DU PARCOURS D'ACHAT</small></div>
+      </div>
+      <div class="project-body">
+        <div class="ptype" data-i18n="proj_card_type">Étude UX · Refonte</div>
+        <h3 data-i18n="proj_card_title">Refonte du tunnel d'achat Rhônexpress</h3>
+        <p data-i18n="proj_card_desc">Analyse du parcours d'achat actuel (6 étapes, pas d'Apple Pay, hiérarchie confuse) et proposition d'un tunnel repensé en 3 étapes, mobile-first, avec paiement express.</p>
+        <div class="project-tags">
+          <span class="tag" data-i18n="proj_tag1">UX Research</span>
+          <span class="tag" data-i18n="proj_tag2">Parcours utilisateur</span>
+          <span class="tag" data-i18n="proj_tag3">Prototypage</span>
+        </div>
+        <button class="btn btn-primary" onclick="openProject()" data-i18n="proj_btn">View project →</button>
+      </div>
+    </div>
+
+    <div class="project-card soon reveal">
+      <div class="project-cover soon-cover">
+        <span class="soon-icon">📊</span>
+      </div>
+      <div class="project-body">
+        <span class="soon-pill" data-i18n="soon_pill">Portfolio en construction</span>
+        <h3 data-i18n="soon_title">D'autres projets arrivent</h3>
+        <p data-i18n="soon_desc">Ce portfolio est en cours de construction. Le projet Rhônexpress est mon premier cas réel, d'autres arrivent, construits en parallèle de ma formation SQL / Python / Power BI :</p>
+        <ul class="soon-list">
+          <li data-i18n="soon_li1">Analyse de données avec SQL &amp; Power BI</li>
+          <li data-i18n="soon_li2">Étude de veille &amp; intelligence stratégique</li>
+          <li data-i18n="soon_li3">Projet Python sur données réelles</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<div class="modal-overlay" id="projectModal">
+  <div class="modal">
+    <div class="modal-top">
+      <button class="modal-close" onclick="closeProject()">×</button>
+      <h3 data-i18n="m_title">Refonte du tunnel d'achat Rhônexpress</h3>
+      <div class="sub" data-i18n="m_sub">Étude UX & prototype — du diagnostic à la solution</div>
+    </div>
+    <div class="modal-body">
+      <h4 data-i18n="m_h_context">Le contexte</h4>
+      <p data-i18n="m_context">Agente commerciale chez Rhônexpress, j'observe au quotidien les voyageurs galérer pour acheter leur billet en ligne. J'ai décidé d'en faire un cas d'étude : diagnostiquer les frictions, puis prototyper une meilleure expérience.</p>
+      <h4 data-i18n="m_h_problem">Le problème</h4>
+      <p data-i18n="m_problem">Le parcours d'achat actuel présente plusieurs frictions majeures :</p>
+      <ul>
+        <li data-i18n="m_p1">6 étapes pour acheter un simple billet</li>
+        <li data-i18n="m_p2">Un bouton rouge trompeur qui renvoie en arrière au lieu de payer</li>
+        <li data-i18n="m_p3">Deux formulaires d'identification empilés sur une même page</li>
+        <li data-i18n="m_p4">Aucun moyen de paiement moderne (pas d'Apple Pay ni Google Pay en 2026)</li>
+        <li data-i18n="m_p5">21 billets affichés sans filtre, dans un accordéon lourd</li>
+      </ul>
+      <h4 data-i18n="m_h_solution">Ma proposition</h4>
+      <p data-i18n="m_solution">Un tunnel repensé en 3 étapes claires : sélection guidée par profil voyageur (adulte, 12-25, salarié, touriste), identification réduite à l'essentiel, et paiement express avec Apple Pay / Google Pay. Avec rappels contextuels des justificatifs à présenter à bord et e-billet ajoutable à Apple Wallet.</p>
+      <h4 data-i18n="m_h_compare">Comparez vous-même</h4>
+      <div class="compare-links">
+        <a class="compare-card" href="https://www.rhonexpress.fr" target="_blank" rel="noopener">
+          <div class="cc-label" data-i18n="m_cc1_label">Site actuel</div>
+          <div class="cc-title" data-i18n="m_cc1_title">Rhônexpress aujourd'hui</div>
+          <div class="cc-arrow" data-i18n="m_cc1_arrow">Ouvrir le site officiel →</div>
+        </a>
+        <a class="compare-card mine" id="demoLinkMain" href="https://nilianad.github.io/Rhonexpress-redesign-desktop/" target="_blank" rel="noopener">
+          <div class="cc-label" data-i18n="m_cc2_label">Ma proposition</div>
+          <div class="cc-title" data-i18n="m_cc2_title">Le parcours repensé</div>
+          <div class="cc-arrow" data-i18n="m_cc2_arrow">Découvrir ci-dessous →</div>
+        </a>
+      </div>
+      <h4 data-i18n="m_h_demo">Voir la démo</h4>
+      <div class="view-toggle">
+        <a id="demoDesktop" href="https://nilianad.github.io/Rhonexpress-redesign-desktop/" target="_blank" rel="noopener" data-i18n="m_demo_desktop">🖥️ Version Desktop</a>
+        <a id="demoMobile" href="https://nilianad.github.io/Rhonexpress-redesign-mobile/" target="_blank" rel="noopener" data-i18n="m_demo_mobile">📱 Version Mobile</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="formation">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num" data-i18n="edu_num">02 — Formation</span>
+      <h2 data-i18n="edu_title">Mon parcours académique</h2>
+      <p data-i18n="edu_sub">Des sciences politiques à la communication, avec un détour par Toronto.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-date">2023 — 2026</div>
+        <h3 data-i18n="edu1_title">Master Communication des Organisations</h3>
+        <div class="tl-org" data-i18n="edu1_org">Université Lumière Lyon 2 — Parcours Communication, Humanitaire &amp; Solidarité</div>
+        <p data-i18n="edu1_desc"></p>
+
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2022 — 2023</div>
+        <h3 data-i18n="edu2_title">Échange universitaire — Sciences sociales &amp; politique</h3>
+        <div class="tl-org">York University, Toronto 🇨🇦</div>
+        <p data-i18n="edu2_desc">Une année à l'international qui a nourri mon regard sur le féminisme, la race, le genre et les droits humains à l'échelle mondiale — et consolidé mon anglais.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2020 — 2023</div>
+        <h3 data-i18n="edu3_title">Licence Science Politique</h3>
+        <div class="tl-org">Université Lumière Lyon 2</div>
+        <p data-i18n="edu3_desc">Socle en analyse, méthode d'enquête et compréhension des dynamiques sociales et institutionnelles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cv">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num" data-i18n="cv_num">03 — CV</span>
+      <h2 data-i18n="cv_title">Curriculum complet</h2>
+      <p data-i18n="cv_sub">Tout mon parcours professionnel, de mes premiers jobs à aujourd'hui.</p>
+    </div>
+    <div class="cv-grid reveal">
+      <div class="cv-block wide">
+        <h3 data-i18n="cv_exp_title">💼 Expériences professionnelles</h3>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp1_t">Agente commerciale</span><span class="ce-date" data-i18n="exp1_d">oct. 2025 – juin 2026</span></div>
+          <div class="ce-org">Rhônexpress (RATP Dev Lyon Express), Lyon</div>
+          <div class="ce-desc" data-i18n="exp1_desc">Seule responsable de la rame et de l'expérience voyageurs sur la liaison express Lyon – Aéroport Saint-Exupéry. Accueil et communication multilingue (FR / EN) auprès de 100+ usagers par jour. Gestion autonome des situations de crise et coordination directe avec le centre opérationnel.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp2_t">Chargée de communication — Stage</span><span class="ce-date" data-i18n="exp2_d">mai – août 2024</span></div>
+          <div class="ce-org">APACH</div>
+          <div class="ce-desc" data-i18n="exp2_desc">Contribution active à la refonte de la stratégie de communication globale et à la modernisation de l'image de l'association. Pilotage de projets, coordination avec les prestataires externes, conception d'événements de sensibilisation et de collecte de fonds, veille stratégique.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp3_t">Chargée d'assistance</span><span class="ce-date" data-i18n="exp3_d">juin – sept. 2023</span></div>
+          <div class="ce-org">Arc Europe, Limonest</div>
+          <div class="ce-desc" data-i18n="exp3_desc">Communication multicanal (téléphone, mail, SMS) avec clients et partenaires dans cinq pays européens. Coordination avec des prestataires externes, gestion de situations sensibles en plusieurs langues, suivi personnalisé jusqu'à résolution complète.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp4_t">Professeure particulier de français</span><span class="ce-date" data-i18n="exp4_d">févr. – mai 2023</span></div>
+          <div class="ce-org">Agence French, Toronto</div>
+          <div class="ce-desc" data-i18n="exp4_desc">Diagnostic des difficultés à l'écrit, conception de séquences d'apprentissage sur-mesure, suivi documenté de la progression de chaque élève.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp5_t">Agent d'accueil</span><span class="ce-date" data-i18n="exp5_d">mai – août 2021</span></div>
+          <div class="ce-org" data-i18n="exp5_org">Résidence Ambroise Paré (EHPAD), Lyon</div>
+          <div class="ce-desc" data-i18n="exp5_desc">Standard, accueil et orientation des familles et résidents, tâches administratives.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp6_t">Hôtesse Offre à Quai</span><span class="ce-date" data-i18n="exp6_d">sept. – déc. 2019</span></div>
+          <div class="ce-org">Newrest Wagons-Lits, Lyon</div>
+          <div class="ce-desc" data-i18n="exp6_desc">Accueil de la Business Classe Lyon–Paris, service de collations et renseignements voyageurs.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp7_t">Caissière</span><span class="ce-date" data-i18n="exp7_d">nov. 2018 – oct. 2019</span></div>
+          <div class="ce-org">Jobstation, Lyon</div>
+          <div class="ce-desc" data-i18n="exp7_desc">Encaissement, distribution des commandes et des boissons.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp8_t">Employée polyvalente</span><span class="ce-date" data-i18n="exp8_d">août – nov. 2018</span></div>
+          <div class="ce-org">Domino's Pizza, Lyon</div>
+          <div class="ce-desc" data-i18n="exp8_desc">Prise de commande physique et téléphonique, préparation, distribution, encaissement.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp9_t">« Chaperon » — Player Escorts</span><span class="ce-date" data-i18n="exp9_d">mai 2018</span></div>
+          <div class="ce-org">MKTG, Lyon</div>
+          <div class="ce-desc" data-i18n="exp9_desc">Encadrement et accompagnement sécurisé des enfants accompagnateurs de joueurs lors d'un événement football.</div>
+        </div>
+        <div class="cv-entry">
+          <div class="ce-head"><span class="ce-title" data-i18n="exp10_t">Baby-sitter</span><span class="ce-date" data-i18n="exp10_d">janv. – sept. 2018</span></div>
+          <div class="ce-org">Zouzous Lyonnais, Lyon</div>
+          <div class="ce-desc" data-i18n="exp10_desc">Sorties d'école, préparation des repas, activités et soins du quotidien.</div>
+        </div>
+      </div>
+
+      <div class="cv-block">
+        <h3 data-i18n="cv_skills_title">🛠️ Compétences</h3>
+        <div class="cv-skills" id="skillsBox"></div>
+      </div>
+
+      <div class="cv-block">
+        <h3 data-i18n="cv_tools_title">📊 Outils &amp; Data</h3>
+        <div class="cv-skills">
+          <span class="tag">SQL</span><span class="tag">Power BI</span><span class="tag">Python (pandas)</span>
+          <span class="tag" data-i18n="tool_excel">Excel avancé</span><span class="tag">Snowflake</span>
+          <span class="tag">Google Workspace</span><span class="tag">Microsoft Office</span>
+          <span class="tag">Canva</span><span class="tag">Inkscape</span><span class="tag">Audacity</span><span class="tag">HTML / CSS</span>
+        </div>
+        <p style="font-size:12px;color:var(--ink-soft);margin-top:12px;font-style:italic" data-i18n="tools_note">Stack data en cours d'acquisition — transition vers Data Analyst / Data Steward.</p>
+      </div>
+
+      <div class="cv-block wide">
+        <h3 data-i18n="cv_cert_title">📜 Certifications</h3>
+        <div class="cert-list">
+          <div class="cert-item"><span class="ci-ico">🟦</span><span><span class="ci-name">Google Data Analytics</span><br><span class="ci-org">Google · Coursera</span></span></div>
+          <div class="cert-item"><span class="ci-ico">🟩</span><span><span class="ci-name">Microsoft Power BI (PL-300)</span><br><span class="ci-org">Microsoft</span></span></div>
+          <div class="cert-item"><span class="ci-ico">🟧</span><span><span class="ci-name">SAP Learning</span><br><span class="ci-org">learning.sap.com</span></span><a href="https://learning.sap.com/" target="_blank" rel="noopener" data-i18n="cert_see">Voir →</a></div>
+        </div>
+        <p style="font-size:12px;color:var(--ink-soft);margin-top:12px;font-style:italic" data-i18n="cert_note">En cours / visées dans le cadre de ma montée en compétences data.</p>
+      </div>
+    </div>
+
+    <div class="cv-download reveal">
+      <a class="btn btn-ghost" href="[lien-vers-ton-CV.pdf]" download data-i18n="cv_download">⬇ Télécharger mon CV (PDF)</a>
+    </div>
+  </div>
+</section>
+
+<section id="langues">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="num" data-i18n="lang_num">04 — Langues</span>
+      <h2 data-i18n="lang_title">Langues parlées</h2>
+    </div>
+    <div class="lang-grid reveal">
+      <div class="lang-card"><div class="lc-name" data-i18n="lang_fr">Français</div><div class="lc-level" data-i18n="lang_fr_lvl">Natif</div><div class="lang-bar"><span style="width:100%"></span></div></div>
+      <div class="lang-card"><div class="lc-name" data-i18n="lang_en">Anglais</div><div class="lc-level" data-i18n="lang_en_lvl">C1 — Courant</div><div class="lang-bar"><span style="width:85%"></span></div></div>
+      <div class="lang-card"><div class="lc-name" data-i18n="lang_pt">Portugais 🇧🇷</div><div class="lc-level" data-i18n="lang_pt_lvl">B2 — Avancé</div><div class="lang-bar"><span style="width:70%"></span></div></div>
+      <div class="lang-card"><div class="lc-name" data-i18n="lang_es">Espagnol</div><div class="lc-level">A2</div><div class="lang-bar"><span style="width:35%"></span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap">
+    <div class="contact reveal">
+      <h2 data-i18n="contact_title">Let's work together</h2>
+      <p data-i18n="contact_sub">Une opportunité, une collaboration, une question ? Écrivez-moi.</p>
+      <div class="contact-links">
+        <a class="c-email" href="mailto:niliana.dacourt@icloud.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          niliana.dacourt@icloud.com
+        </a>
+        <a class="c-linkedin" href="https://www.linkedin.com/in/niliana-dacourt/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 17V10.4H6.2V17h2.14zM7.27 9.46a1.24 1.24 0 1 0 0-2.48 1.24 1.24 0 0 0 0 2.48zM18 17v-3.62c0-1.93-.41-3.42-2.67-3.42-1.08 0-1.81.6-2.11 1.16h-.03V10.4h-2.05V17h2.14v-3.26c0-.86.16-1.69 1.23-1.69 1.05 0 1.07.98 1.07 1.75V17H18z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>© <span id="year"></span> Niliana Dacourt — Customer Insight &amp; Data</footer>
+
+<script>
+/* ===== i18n DICTIONARY ===== */
+const I18N={
+  fr:{
+    nav_projects:"Projets",nav_education:"Formation",nav_cv:"CV",nav_languages:"Langues",nav_contact:"Contact",
+    hero_eyebrow:"Portfolio",
+    hero_bio:"Je suis quelqu'un qui <strong>observe avant de conclure</strong>. Là où d'autres voient un détail anodin, je repère un signal : une friction, une incohérence, une question à creuser. C'est cette posture d'<strong>enquêtrice</strong>, héritée de ma formation en sciences politiques et en communication, qui m'amène vers l'<strong>insight client et la data</strong> : transformer ce que les gens font et ressentent en quelque chose de lisible, d'actionnable, qui résout un vrai problème.<br><br>Méthodique, attentive au moindre détail et un brin perfectionniste, j'aime décortiquer un parcours utilisateur jusqu'à comprendre exactement où ça coince, puis proposer mieux.",
+    hero_cta1:"Voir mes projets",hero_cta2:"Me contacter",
+    proj_num:"01 — Projets",proj_title:"Travaux sélectionnés",proj_sub:"Là où l'analyse du besoin utilisateur rencontre le design et la donnée.",
+    proj_cover_sub:"REFONTE DU PARCOURS D'ACHAT",proj_card_type:"Étude UX · Refonte",proj_card_title:"Refonte du tunnel d'achat Rhônexpress",
+    proj_card_desc:"Analyse du parcours d'achat actuel (6 étapes, pas d'Apple Pay, hiérarchie confuse) et proposition d'un tunnel repensé en 3 étapes, mobile-first, avec paiement express.",
+    proj_tag1:"UX Research",proj_tag2:"Parcours utilisateur",proj_tag3:"Prototypage",proj_btn:"Voir le projet →",
+    soon_pill:"Portfolio en construction",soon_title:"D'autres projets arrivent",
+    soon_desc:"Ce portfolio est en cours de construction. Le projet Rhônexpress est mon premier cas réel, d'autres arrivent, construits en parallèle de ma formation SQL / Python / Power BI :",
+    soon_li1:"Analyse de données avec SQL &amp; Power BI",soon_li2:"Étude de veille &amp; intelligence stratégique",soon_li3:"Projet Python sur données réelles",
+    m_title:"Refonte du tunnel d'achat Rhônexpress",m_sub:"Étude UX & prototype — du diagnostic à la solution",
+    m_h_context:"Le contexte",m_context:"Agente commerciale chez Rhônexpress, j'observe au quotidien les voyageurs galérer pour acheter leur billet en ligne. J'ai décidé d'en faire un cas d'étude : diagnostiquer les frictions, puis prototyper une meilleure expérience.",
+    m_h_problem:"Le problème",m_problem:"Le parcours d'achat actuel présente plusieurs frictions majeures :",
+    m_p1:"6 étapes pour acheter un simple billet",m_p2:"Un bouton rouge trompeur qui renvoie en arrière au lieu de payer",m_p3:"Deux formulaires d'identification empilés sur une même page",m_p4:"Aucun moyen de paiement moderne (pas d'Apple Pay ni Google Pay en 2026)",m_p5:"21 billets affichés sans filtre, dans un accordéon lourd",
+    m_h_solution:"Ma proposition",m_solution:"Un tunnel repensé en 3 étapes claires : sélection guidée par profil voyageur (adulte, 12-25, salarié, touriste), identification réduite à l'essentiel, et paiement express avec Apple Pay / Google Pay. Avec rappels contextuels des justificatifs à présenter à bord et e-billet ajoutable à Apple Wallet.",
+    m_h_compare:"Comparez vous-même",m_cc1_label:"Site actuel",m_cc1_title:"Rhônexpress aujourd'hui",m_cc1_arrow:"Ouvrir le site officiel →",
+    m_cc2_label:"Ma proposition",m_cc2_title:"Le parcours repensé",m_cc2_arrow:"Découvrir ci-dessous →",
+    m_h_demo:"Voir la démo",m_demo_desktop:"🖥️ Version Desktop",m_demo_mobile:"📱 Version Mobile",
+    edu_num:"02 — Formation",edu_title:"Mon parcours académique",edu_sub:"Des sciences politiques à la communication, avec un détour par Toronto.",
+    edu1_title:"Master Communication des Organisations",edu1_org:"Université Lumière Lyon 2 — Parcours Communication, Humanitaire & Solidarité",
+    edu1_desc:"Mémoire de recherche : « La fabrique d'un paradis. Communication institutionnelle et touristique sur la Guadeloupe et invisibilisation des crises sanitaires, environnementales et sociales — le cas du scandale du chlordécone. » Analyse de discours, sémiotique et communication de crise.",
+    edu1_link:"📄 Consulter le mémoire →",
+    edu2_title:"Échange universitaire — Sciences sociales & politique",edu2_desc:"Une année à l'international qui a nourri mon regard sur le féminisme, la race, le genre et les droits humains à l'échelle mondiale — et consolidé mon anglais.",
+    edu3_title:"Licence Science Politique",edu3_desc:"Socle en analyse, méthode d'enquête et compréhension des dynamiques sociales et institutionnelles.",
+    cv_num:"03 — CV",cv_title:"Curriculum complet",cv_sub:"Tout mon parcours professionnel, de mes premiers jobs à aujourd'hui.",
+    cv_exp_title:"💼 Expériences professionnelles",
+    exp1_t:"Agente commerciale",exp1_d:"oct. 2025 – juin 2026",exp1_desc:"Seule responsable de la rame et de l'expérience voyageurs sur la liaison express Lyon – Aéroport Saint-Exupéry. Accueil et communication multilingue (FR / EN) auprès de 100+ usagers par jour. Gestion autonome des situations de crise et coordination directe avec le centre opérationnel.",
+    exp2_t:"Chargée de communication — Stage",exp2_d:"mai – août 2024",exp2_desc:"Contribution active à la refonte de la stratégie de communication globale et à la modernisation de l'image de l'association. Pilotage de projets, coordination avec les prestataires externes, conception d'événements de sensibilisation et de collecte de fonds, veille stratégique.",
+    exp3_t:"Chargée d'assistance",exp3_d:"juin – sept. 2023",exp3_desc:"Communication multicanal (téléphone, mail, SMS) avec clients et partenaires dans cinq pays européens. Coordination avec des prestataires externes, gestion de situations sensibles en plusieurs langues, suivi personnalisé jusqu'à résolution complète.",
+    exp4_t:"Professeure particulier de français",exp4_d:"févr. – mai 2023",exp4_desc:"Diagnostic des difficultés à l'écrit, conception de séquences d'apprentissage sur-mesure, suivi documenté de la progression de chaque élève.",
+    exp5_t:"Agent d'accueil",exp5_d:"mai – août 2021",exp5_org:"Résidence Ambroise Paré (EHPAD), Lyon",exp5_desc:"Standard, accueil et orientation des familles et résidents, tâches administratives.",
+    exp6_t:"Hôtesse Offre à Quai",exp6_d:"sept. – déc. 2019",exp6_desc:"Accueil de la Business Classe Lyon–Paris, service de collations et renseignements voyageurs.",
+    exp7_t:"Caissière",exp7_d:"nov. 2018 – oct. 2019",exp7_desc:"Encaissement, distribution des commandes et des boissons.",
+    exp8_t:"Employée polyvalente",exp8_d:"août – nov. 2018",exp8_desc:"Prise de commande physique et téléphonique, préparation, distribution, encaissement.",
+    exp9_t:"« Chaperon » — Player Escorts",exp9_d:"mai 2018",exp9_desc:"Encadrement et accompagnement sécurisé des enfants accompagnateurs de joueurs lors d'un événement football.",
+    exp10_t:"Baby-sitter",exp10_d:"janv. – sept. 2018",exp10_desc:"Sorties d'école, préparation des repas, activités et soins du quotidien.",
+    cv_skills_title:"🛠️ Compétences",cv_tools_title:"📊 Outils & Data",tool_excel:"Excel avancé",
+    tools_note:"Stack data en cours d'acquisition — transition vers Data Analyst / Data Steward.",
+    cv_cert_title:"📜 Certifications",cert_see:"Voir →",cert_note:"En cours / visées dans le cadre de ma montée en compétences data.",
+    cv_download:"⬇ Télécharger mon CV (PDF)",
+    lang_num:"04 — Langues",lang_title:"Langues parlées",
+    lang_fr:"Français",lang_fr_lvl:"Natif",lang_en:"Anglais",lang_en_lvl:"C1 — Courant",lang_pt:"Portugais 🇧🇷",lang_pt_lvl:"B2 — Avancé",lang_es:"Espagnol",
+    contact_title:"Let's work together",contact_sub:"Une opportunité, une collaboration, une question ? Écrivez-moi.",
+    skills:["UX Research","Parcours utilisateur","Analyse de discours","Rédaction","Pilotage de projets","Communication institutionnelle","Veille stratégique","Coordination multipartite","Aisance interculturelle","Animation réseaux sociaux"]
+  },
+  en:{
+    nav_projects:"Projects",nav_education:"Education",nav_cv:"CV",nav_languages:"Languages",nav_contact:"Contact",
+    hero_eyebrow:"Portfolio",
+    hero_bio:"I'm someone who <strong>observes before drawing conclusions</strong>. Where others see a trivial detail, I spot a signal: a friction, an inconsistency, a question worth digging into. It's this <strong>investigative mindset</strong>, shaped by my background in political science and communication, that draws me towards <strong>customer insight and data</strong>: turning what people do and feel into something legible, actionable, that solves a real problem.<br><br>Methodical, attentive to the smallest detail and a touch of a perfectionist, I love taking a user journey apart until I understand exactly where it breaks down, then proposing better.",
+    hero_cta1:"View my projects",hero_cta2:"Get in touch",
+    proj_num:"01 — Projects",proj_title:"Selected work",proj_sub:"Where user-needs analysis meets design and data.",
+    proj_cover_sub:"PURCHASE FLOW REDESIGN",proj_card_type:"UX Study · Redesign",proj_card_title:"Rhônexpress purchase flow redesign",
+    proj_card_desc:"An analysis of the current purchase flow (6 steps, no Apple Pay, confusing hierarchy) and a proposal for a 3-step, mobile-first flow with express checkout.",
+    proj_tag1:"UX Research",proj_tag2:"User journey",proj_tag3:"Prototyping",proj_btn:"View project →",
+    soon_pill:"Portfolio in progress",soon_title:"More projects on the way",
+    soon_desc:"This portfolio is a work in progress. The Rhônexpress project is my first real case study, more are coming, built alongside my SQL / Python / Power BI training:",
+    soon_li1:"Data analysis with SQL &amp; Power BI",soon_li2:"Strategic monitoring &amp; intelligence study",soon_li3:"Python project on real-world data",
+    m_title:"Rhônexpress purchase flow redesign",m_sub:"UX study & prototype — from diagnosis to solution",
+    m_h_context:"The context",m_context:"As a customer-service agent on board Rhônexpress, I watch travellers struggle daily to buy their tickets online. I turned it into a case study: diagnose the frictions, then prototype a better experience.",
+    m_h_problem:"The problem",m_problem:"The current purchase flow has several major frictions:",
+    m_p1:"6 steps to buy a single ticket",m_p2:"A misleading red button that goes backwards instead of paying",m_p3:"Two identification forms stacked on the same page",m_p4:"No modern payment method (no Apple Pay or Google Pay in 2026)",m_p5:"21 tickets shown with no filter, in a heavy accordion",
+    m_h_solution:"My proposal",m_solution:"A flow rethought in 3 clear steps: selection guided by traveller profile (adult, 12-25, staff, tourist), identification trimmed to the essentials, and express checkout with Apple Pay / Google Pay. With contextual reminders of the proof to show on board and an e-ticket you can add to Apple Wallet.",
+    m_h_compare:"See for yourself",m_cc1_label:"Current site",m_cc1_title:"Rhônexpress today",m_cc1_arrow:"Open the official site →",
+    m_cc2_label:"My proposal",m_cc2_title:"The redesigned flow",m_cc2_arrow:"Explore below →",
+    m_h_demo:"View the demo",m_demo_desktop:"🖥️ Desktop version",m_demo_mobile:"📱 Mobile version",
+    edu_num:"02 — Education",edu_title:"My academic path",edu_sub:"From political science to communication, with a detour through Toronto.",
+    edu1_title:"Master's in Organisational Communication",edu1_org:"Université Lumière Lyon 2 — Communication, Humanitarian & Solidarity track",
+    edu1_desc:"Research dissertation: \"Manufacturing a paradise. Institutional and tourism communication around Guadeloupe and the invisibilisation of health, environmental and social crises — the chlordecone scandal.\" Discourse analysis, semiotics and crisis communication.",
+    edu1_link:"📄 Read the dissertation →",
+    edu2_title:"Exchange year — Social & political sciences",edu2_desc:"A year abroad that broadened my view on feminism, race, gender and human rights on a global scale — and sharpened my English.",
+    edu3_title:"Bachelor's in Political Science",edu3_desc:"A foundation in analysis, research method and understanding of social and institutional dynamics.",
+    cv_num:"03 — CV",cv_title:"Full résumé",cv_sub:"My whole professional path, from my first jobs to today.",
+    cv_exp_title:"💼 Work experience",
+    exp1_t:"Customer-service agent",exp1_d:"Oct 2025 – Jun 2026",exp1_desc:"Sole person in charge of the carriage and the passenger experience on the Lyon – Saint-Exupéry Airport express link. Multilingual welcome and communication (FR / EN) for 100+ daily users. Autonomous crisis handling and direct coordination with the operations centre.",
+    exp2_t:"Communications Officer — Internship",exp2_d:"May – Aug 2024",exp2_desc:"Active contribution to the overhaul of the global communication strategy and the modernisation of the association's image. Project management, coordination with external providers, design of awareness and fundraising events, strategic monitoring.",
+    exp3_t:"Assistance Officer",exp3_d:"Jun – Sep 2023",exp3_desc:"Multichannel communication (phone, email, SMS) with clients and partners across five European countries. Coordination with external providers, handling of sensitive situations in several languages, personalised follow-up through to full resolution.",
+    exp4_t:"Private French tutor",exp4_d:"Feb – May 2023",exp4_desc:"Diagnosis of written difficulties, design of tailor-made learning sequences, documented tracking of each student's progress.",
+    exp5_t:"Front-desk agent",exp5_d:"May – Aug 2021",exp5_org:"Ambroise Paré Residence (care home), Lyon",exp5_desc:"Switchboard, welcoming and directing families and residents, administrative tasks.",
+    exp6_t:"Platform Service Host",exp6_d:"Sep – Dec 2019",exp6_desc:"Welcoming Business Class on the Lyon–Paris line, serving refreshments and providing passenger information.",
+    exp7_t:"Cashier",exp7_d:"Nov 2018 – Oct 2019",exp7_desc:"Checkout, handing out orders and drinks.",
+    exp8_t:"Versatile team member",exp8_d:"Aug – Nov 2018",exp8_desc:"Taking orders in person and by phone, preparation, distribution, checkout.",
+    exp9_t:"\"Chaperone\" — Player Escorts",exp9_d:"May 2018",exp9_desc:"Supervising and safely escorting the children accompanying players at a football event.",
+    exp10_t:"Babysitter",exp10_d:"Jan – Sep 2018",exp10_desc:"School pick-ups, preparing meals, activities and daily care.",
+    cv_skills_title:"🛠️ Skills",cv_tools_title:"📊 Tools & Data",tool_excel:"Advanced Excel",
+    tools_note:"Data stack in progress — transitioning towards Data Analyst / Data Steward.",
+    cv_cert_title:"📜 Certifications",cert_see:"View →",cert_note:"In progress / targeted as part of building up my data skills.",
+    cv_download:"⬇ Download my CV (PDF)",
+    lang_num:"04 — Languages",lang_title:"Languages spoken",
+    lang_fr:"French",lang_fr_lvl:"Native",lang_en:"English",lang_en_lvl:"C1 — Fluent",lang_pt:"Portuguese 🇧🇷",lang_pt_lvl:"B2 — Advanced",lang_es:"Spanish",
+    contact_title:"Let's work together",contact_sub:"An opportunity, a collaboration, a question? Drop me a line.",
+    skills:["UX Research","User journeys","Discourse analysis","Copywriting","Project management","Institutional communication","Strategic monitoring","Multi-stakeholder coordination","Intercultural ease","Social media management"]
+  },
+  pt:{
+    nav_projects:"Projetos",nav_education:"Formação",nav_cv:"Currículo",nav_languages:"Idiomas",nav_contact:"Contato",
+    hero_eyebrow:"Portfólio",
+    hero_bio:"Sou alguém que <strong>observa antes de concluir</strong>. Onde outros veem um detalhe banal, eu percebo um sinal: um atrito, uma incoerência, uma pergunta que vale a pena investigar. É essa postura <strong>investigativa</strong>, herdada da minha formação em ciência política e comunicação, que me leva ao <strong>customer insight e à área de dados</strong>: transformar o que as pessoas fazem e sentem em algo legível, acionável, que resolve um problema real.<br><br>Metódica, atenta ao menor detalhe e um pouco perfeccionista, gosto de desmontar uma jornada de usuário até entender exatamente onde ela trava, e então propor algo melhor.",
+    hero_cta1:"Ver meus projetos",hero_cta2:"Entrar em contato",
+    proj_num:"01 — Projetos",proj_title:"Trabalhos selecionados",proj_sub:"Onde a análise das necessidades do usuário encontra o design e os dados.",
+    proj_cover_sub:"REDESIGN DO FLUXO DE COMPRA",proj_card_type:"Estudo de UX · Redesign",proj_card_title:"Redesign do fluxo de compra da Rhônexpress",
+    proj_card_desc:"Análise do fluxo de compra atual (6 etapas, sem Apple Pay, hierarquia confusa) e proposta de um fluxo repensado em 3 etapas, mobile-first, com pagamento expresso.",
+    proj_tag1:"Pesquisa de UX",proj_tag2:"Jornada do usuário",proj_tag3:"Prototipagem",proj_btn:"Ver projeto →",
+    soon_pill:"Portfólio em construção",soon_title:"Mais projetos a caminho",
+    soon_desc:"Este portfólio está em construção. O projeto Rhônexpress é meu primeiro caso real, outros estão a caminho, construídos junto com minha formação em SQL / Python / Power BI:",
+    soon_li1:"Análise de dados com SQL &amp; Power BI",soon_li2:"Estudo de monitoramento &amp; inteligência estratégica",soon_li3:"Projeto em Python com dados reais",
+    m_title:"Redesign do fluxo de compra da Rhônexpress",m_sub:"Estudo de UX e protótipo — do diagnóstico à solução",
+    m_h_context:"O contexto",m_context:"Como agente de atendimento a bordo da Rhônexpress, vejo todos os dias os passageiros terem dificuldade para comprar a passagem online. Transformei isso em um estudo de caso: diagnosticar os atritos e prototipar uma experiência melhor.",
+    m_h_problem:"O problema",m_problem:"O fluxo de compra atual apresenta vários atritos importantes:",
+    m_p1:"6 etapas para comprar uma única passagem",m_p2:"Um botão vermelho enganoso que volta atrás em vez de pagar",m_p3:"Dois formulários de identificação empilhados na mesma página",m_p4:"Nenhum meio de pagamento moderno (sem Apple Pay nem Google Pay em 2026)",m_p5:"21 passagens exibidas sem filtro, em um acordeão pesado",
+    m_h_solution:"Minha proposta",m_solution:"Um fluxo repensado em 3 etapas claras: seleção guiada por perfil de passageiro (adulto, 12-25, funcionário, turista), identificação reduzida ao essencial e pagamento expresso com Apple Pay / Google Pay. Com lembretes contextuais dos comprovantes a apresentar a bordo e bilhete eletrônico que pode ser adicionado à Apple Wallet.",
+    m_h_compare:"Compare você mesmo",m_cc1_label:"Site atual",m_cc1_title:"Rhônexpress hoje",m_cc1_arrow:"Abrir o site oficial →",
+    m_cc2_label:"Minha proposta",m_cc2_title:"O fluxo repensado",m_cc2_arrow:"Descobrir abaixo →",
+    m_h_demo:"Ver a demonstração",m_demo_desktop:"🖥️ Versão Desktop",m_demo_mobile:"📱 Versão Mobile",
+    edu_num:"02 — Formação",edu_title:"Minha trajetória acadêmica",edu_sub:"Da ciência política à comunicação, com uma passagem por Toronto.",
+    edu1_title:"Mestrado em Comunicação das Organizações",edu1_org:"Université Lumière Lyon 2 — Ênfase Comunicação, Humanitário e Solidariedade",
+    edu1_desc:"Dissertação de pesquisa: \"A fabricação de um paraíso. Comunicação institucional e turística sobre Guadalupe e a invisibilização das crises sanitárias, ambientais e sociais — o caso do escândalo do clordecone.\" Análise do discurso, semiótica e comunicação de crise.",
+    edu1_link:"📄 Ler a dissertação →",
+    edu2_title:"Intercâmbio universitário — Ciências sociais e políticas",edu2_desc:"Um ano no exterior que enriqueceu meu olhar sobre feminismo, raça, gênero e direitos humanos em escala global — e consolidou meu inglês.",
+    edu3_title:"Bacharelado em Ciência Política",edu3_desc:"Base em análise, método de investigação e compreensão das dinâmicas sociais e institucionais.",
+    cv_num:"03 — Currículo",cv_title:"Currículo completo",cv_sub:"Toda a minha trajetória profissional, dos primeiros trabalhos até hoje.",
+    cv_exp_title:"💼 Experiência profissional",
+    exp1_t:"Agente comercial",exp1_d:"out. 2025 – jun. 2026",exp1_desc:"Única responsável pelo vagão e pela experiência dos passageiros na ligação expressa Lyon – Aeroporto Saint-Exupéry. Acolhimento e comunicação multilíngue (FR / EN) com mais de 100 usuários por dia. Gestão autônoma de situações de crise e coordenação direta com o centro operacional.",
+    exp2_t:"Assistente de comunicação — Estágio",exp2_d:"mai. – ago. 2024",exp2_desc:"Contribuição ativa na reformulação da estratégia global de comunicação e na modernização da imagem da associação. Gestão de projetos, coordenação com prestadores externos, concepção de eventos de conscientização e arrecadação de fundos, monitoramento estratégico.",
+    exp3_t:"Assistente de apoio",exp3_d:"jun. – set. 2023",exp3_desc:"Comunicação multicanal (telefone, e-mail, SMS) com clientes e parceiros em cinco países europeus. Coordenação com prestadores externos, gestão de situações delicadas em vários idiomas, acompanhamento personalizado até a resolução completa.",
+    exp4_t:"Professora particular de francês",exp4_d:"fev. – mai. 2023",exp4_desc:"Diagnóstico das dificuldades na escrita, concepção de sequências de aprendizagem sob medida, acompanhamento documentado do progresso de cada aluno.",
+    exp5_t:"Agente de recepção",exp5_d:"mai. – ago. 2021",exp5_org:"Residência Ambroise Paré (lar de idosos), Lyon",exp5_desc:"Central telefônica, acolhimento e orientação de famílias e residentes, tarefas administrativas.",
+    exp6_t:"Recepcionista de plataforma",exp6_d:"set. – dez. 2019",exp6_desc:"Acolhimento da Classe Executiva na linha Lyon–Paris, serviço de lanches e informações aos passageiros.",
+    exp7_t:"Caixa",exp7_d:"nov. 2018 – out. 2019",exp7_desc:"Operação de caixa, entrega de pedidos e bebidas.",
+    exp8_t:"Funcionária polivalente",exp8_d:"ago. – nov. 2018",exp8_desc:"Recebimento de pedidos presencial e por telefone, preparo, distribuição, operação de caixa.",
+    exp9_t:"\"Chaperone\" — Player Escorts",exp9_d:"mai. 2018",exp9_desc:"Supervisão e acompanhamento seguro das crianças que acompanham os jogadores em um evento de futebol.",
+    exp10_t:"Babá",exp10_d:"jan. – set. 2018",exp10_desc:"Buscar as crianças na escola, preparo das refeições, atividades e cuidados do dia a dia.",
+    cv_skills_title:"🛠️ Competências",cv_tools_title:"📊 Ferramentas e Dados",tool_excel:"Excel avançado",
+    tools_note:"Stack de dados em construção — transição para Data Analyst / Data Steward.",
+    cv_cert_title:"📜 Certificações",cert_see:"Ver →",cert_note:"Em andamento / pretendidas como parte do desenvolvimento das minhas competências em dados.",
+    cv_download:"⬇ Baixar meu currículo (PDF)",
+    lang_num:"04 — Idiomas",lang_title:"Idiomas falados",
+    lang_fr:"Francês",lang_fr_lvl:"Nativo",lang_en:"Inglês",lang_en_lvl:"C1 — Fluente",lang_pt:"Português 🇧🇷",lang_pt_lvl:"B2 — Avançado",lang_es:"Espanhol",
+    contact_title:"Let's work together",contact_sub:"Uma oportunidade, uma colaboração, uma pergunta? Me escreva.",
+    skills:["Pesquisa de UX","Jornadas do usuário","Análise do discurso","Redação","Gestão de projetos","Comunicação institucional","Monitoramento estratégico","Coordenação multipartite","Facilidade intercultural","Gestão de redes sociais"]
+  }
+};
+
+const LANG_CODE={fr:'fr',en:'en-GB',pt:'pt-BR'};
+let curLang='fr';
+
+function setLang(lang){
+  curLang=lang;
+  const dict=I18N[lang];
+  document.documentElement.lang=LANG_CODE[lang];
+  // text nodes
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key=el.getAttribute('data-i18n');
+    if(dict[key]!==undefined) el.innerHTML=dict[key];
+  });
+  // skills list
+  const box=document.getElementById('skillsBox');
+  box.innerHTML=dict.skills.map(s=>`<span class="tag">${s}</span>`).join('');
+  // active button
+  document.querySelectorAll('.lang-switch button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+  // pass lang to demo links
+  const q = lang==='fr' ? '' : ('?lang='+lang);
+  document.getElementById('demoDesktop').href='https://nilianad.github.io/Rhonexpress-redesign-desktop/'+q;
+  document.getElementById('demoMobile').href='https://nilianad.github.io/Rhonexpress-redesign-mobile/'+q;
+  document.getElementById('demoLinkMain').href='https://nilianad.github.io/Rhonexpress-redesign-desktop/'+q;
+  // remember choice
+  try{localStorage.setItem('nd_lang',lang);}catch(e){}
+}
+
+document.getElementById('year').textContent=new Date().getFullYear();
+function openProject(){document.getElementById('projectModal').classList.add('open');document.body.style.overflow='hidden';}
+function closeProject(){document.getElementById('projectModal').classList.remove('open');document.body.style.overflow='';}
+document.getElementById('projectModal').addEventListener('click',e=>{if(e.target.id==='projectModal')closeProject();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeProject();});
+const io=new IntersectionObserver((entries)=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* init: saved pref or browser language */
+(function(){
+  let start='fr';
+  try{const saved=localStorage.getItem('nd_lang');if(saved&&I18N[saved])start=saved;}catch(e){}
+  setLang(start);
+})();
+</script>
+</body>
+</html>
